@@ -56,13 +56,15 @@ public class WordFrag extends Fragment {
                 }
                 else {
                     String[] separated = getInput.split(" ");
-                    String filtering = "";
+                    String[] filtering = new String[separated.length];
                     for(int i=0; i<separated.length; i++) {
-                        filtering += "%" + separated[i] + "%";
+                        filtering[i] = "%" + separated[i] + "%";
                     }
                     String filter = "body LIKE ?";
-                    String[] filterArgs = {filtering};
-                    cursor = cr.query(uri, reqCols, filter,filterArgs, null);
+                    for(int i=0; i<filtering.length-1; i++) {
+                        filter += " OR body LIKE ?";
+                    }
+                    cursor = cr.query(uri, reqCols, filter,filtering, null);
                 }
                 String smsBody = "";
                 if(cursor.moveToFirst()) {
