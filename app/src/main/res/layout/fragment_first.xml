@@ -9,7 +9,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <TextView
         android:id="@+id/tvFrag1"
         android:layout_width="match_parent"
@@ -23,11 +22,29 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/btnRetrieveTextFrag1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retrieve SMS" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRetrieveTextFrag1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Retrieve SMS" />
+
+        <Button
+            android:id="@+id/btnEmail"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Email Content" />
+
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/tvFrag2"

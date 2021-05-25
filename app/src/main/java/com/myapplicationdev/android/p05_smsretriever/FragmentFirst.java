@@ -2,6 +2,7 @@ package com.myapplicationdev.android.p05_smsretriever;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,9 +21,10 @@ import android.widget.TextView;
 
 public class FragmentFirst extends Fragment {
 
-    Button btnAddTextFrag1;
+    Button btnAddTextFrag1, btnEmail;
     EditText etNum;
     TextView tvFrag1, tvFrag2;
+    String smsBody;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +34,7 @@ public class FragmentFirst extends Fragment {
         tvFrag2 = view.findViewById(R.id.tvFrag2);
         etNum = view.findViewById(R.id.etNum);
         btnAddTextFrag1 = view.findViewById(R.id.btnRetrieveTextFrag1);
+        btnEmail = view.findViewById(R.id.btnEmail);
 
         btnAddTextFrag1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +63,7 @@ public class FragmentFirst extends Fragment {
                 String[] filterArgs = {"%" + etNum.getText().toString() +"%"};
                 // Fetch SMS Message from Built-in Content Provider
                 Cursor cursor = cr.query(uri, reqCols, filter, filterArgs, null);
-                String smsBody = "";
+                smsBody = "";
                 if(cursor.moveToFirst()){
                     do{
                         long dateInMillis = cursor.getLong(0);
@@ -80,6 +83,20 @@ public class FragmentFirst extends Fragment {
                 tvFrag2.setText(smsBody);
             }
         });
+
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"alicialim0123@gmail.com"});
+                email.putExtra(Intent.EXTRA_TEXT, smsBody);
+                email.setType("message/rfc822");
+                startActivity(email);
+                startActivity(Intent.createChooser(email, "Send Email"));
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
     }
