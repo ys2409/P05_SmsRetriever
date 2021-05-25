@@ -55,8 +55,12 @@ public class WordFrag extends Fragment {
                     cursor = cr.query(uri, reqCols, null,null, null);
                 }
                 else {
+                    String[] separated = getInput.split(" ");
+                    String filtering = "";
+                    for(int i=0; i<separated.length; i++) {
+                        filtering += "%" + separated[i] + "%";
+                    }
                     String filter = "body LIKE ?";
-                    String filtering = "%" + getInput + "%";
                     String[] filterArgs = {filtering};
                     cursor = cr.query(uri, reqCols, filter,filterArgs, null);
                 }
@@ -75,7 +79,7 @@ public class WordFrag extends Fragment {
                         else {
                             type = "Sent:";
                         }
-                        smsBody += type + " " + address + "\n at " + date + "\n" + body + "\"\n\n";
+                        smsBody += type + " " + address + "\n at " + date + "\n" + body + "\n\n";
                     } while (cursor.moveToNext());
                 }
                 tvShowWordFragSec.setText(smsBody);
