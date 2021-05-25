@@ -60,7 +60,7 @@ public class WordFrag extends Fragment {
                     for(int i=0; i<separated.length; i++) {
                         filtering[i] = "%" + separated[i] + "%";
                     }
-                    String filter = "body LIKE ?";
+                    String filter = "body LIKE ? or body LIKE ? and body LIKE ?";
                     for(int i=0; i<filtering.length-1; i++) {
                         filter += " OR body LIKE ?";
                     }
